@@ -16,7 +16,10 @@ export default function List(){
       products.map((a, i)=>{
         return(
           <div>
-            <h4 className="food">{products[i]}</h4>
+            <h4 className="food" key={i}>
+            <img src={`/food${i}.png`} className="food-img"></img>
+              {a}
+            </h4>
           </div>
         )
       })
