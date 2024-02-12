@@ -22,3 +22,13 @@ body{
   padding:20px;
   border-radius: 5px;
 }
+
+.navbar{
+  background-color: white;
+  padding:20px;
+}
+
+.navbar a {
+  margin-right:10px;
+  text-decoration: none;
+}
