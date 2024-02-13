@@ -1,9 +1,17 @@
+import { connectDB } from "@/util/database";
 
 
-export default function Home() {
+export default async function Home() {
+
+
+  const client = await connectDB
+  const db = client.db("forum");
+  let result = await db.collection('post').find().toArray();
+
+  
   return (
-    <div className={styles.main}>
-      
+    <div>
+      <h1>hello</h1>
     </div>
   );
 }
