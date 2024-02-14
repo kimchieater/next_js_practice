@@ -2,6 +2,7 @@
 
 import { connectDB } from "@/util/database";
 import {Link} from "next/link";
+import DetailLink from "./DetailLink";
 
 
 export default async function List() {
@@ -17,6 +18,7 @@ export default async function List() {
               <div className="list-item" key={i}>
               <a href={`/detail/${result[i]._id}`}><h4>{result[i].title}</h4></a>
               <p>Jan 1st</p>
+              <DetailLink></DetailLink>
             </div>
           )
         })
