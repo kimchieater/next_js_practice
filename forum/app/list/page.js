@@ -1,12 +1,12 @@
 
 
 import { connectDB } from "@/util/database";
-import {Link} from "next/link";
+import Link from "next/link";
 import DetailLink from "./DetailLink";
 
 
 export default async function List() {
-  const client = await connectDB
+  const client = await connectDB();
   const db = client.db("forum");
   let result = await db.collection('post').find().toArray();
 
@@ -18,7 +18,8 @@ export default async function List() {
               <div className="list-item" key={i}>
               <a href={`/detail/${result[i]._id}`}><h4>{result[i].title}</h4></a>
               <p>Jan 1st</p>
-              <DetailLink></DetailLink>
+              <Link href={`/edit/$({result[i]._id}`}><button>Edit</button></Link>
+
             </div>
           )
         })

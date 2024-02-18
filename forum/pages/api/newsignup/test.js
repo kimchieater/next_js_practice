@@ -1,23 +1,35 @@
 import { connectDB } from "@/util/database";
+import { cloneElement } from "react";
 
 export default async function handler(request, response){
     let db = (await connectDB).db("forum");
-    let result = await db.collection('signup')
-    
+    let collection = db.collection("signup");
+
+    let checkId = request.body.id;
 
     if (request.method == "POST"){
-      let searchId = await db.collection('signup').find();
-      if (request.body.id == searchId.id){
+      const query = { id: checkId };
+      try{
+        const result = await collection.findOne(query);
+        console.log(result);
+        
+        if (result){
+          console.log("Data exists in the database");
+          return response.status(409).send("Data already exists");
+        } else {
+          console.log("Data does not exist in the database, proceed with POST")
+          await collection.insertOne(request.body)
+          return response.status(201).send("Data added successfully");
 
-
-
-        return response.status(500).json("ID exists")
+        }
+      } catch(err){
+        console.error("Database query failed", err);
+        return response.status(500).send("Internal server error");
       }
-      try {
-        result.insertOne(request.body);
-        response.redirect(302, "/list");
-      } catch(error){
-        response.status(400).json("Database is down");
-      }
+    } else {
+    response.setHeader('allow', ['POST']);
+    response.status(405).end(`Method ${request.method} Not allowed`);
     }
-} 
+      
+      
+  }
