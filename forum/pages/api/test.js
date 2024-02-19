@@ -6,7 +6,7 @@ export default async function  handler (request, response){
   const db = client.db("forum");
   let result = await db.collection('post').find().toArray()
 
-  let insert = 
+
   
   function date(){
     const currentDate = new Date();

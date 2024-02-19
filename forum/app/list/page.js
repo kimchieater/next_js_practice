@@ -6,10 +6,10 @@ import DetailLink from "./DetailLink";
 
 
 export default async function List() {
-  const client = await connectDB();
+  const client = await connectDB;
   const db = client.db("forum");
   let result = await db.collection('post').find().toArray();
-
+  
   return (
     <div className="list-bg">
       {
@@ -18,7 +18,7 @@ export default async function List() {
               <div className="list-item" key={i}>
               <a href={`/detail/${result[i]._id}`}><h4>{result[i].title}</h4></a>
               <p>Jan 1st</p>
-              <Link href={`/edit/$({result[i]._id}`}><button>Edit</button></Link>
+              <a href={`/edit/${result[i]._id}`}><button>Edit</button></a>
 
             </div>
           )
